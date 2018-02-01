@@ -4,11 +4,11 @@ var app = express();
 
 var data = {
 	"questions": [
-		{"id":1, "question": "What are good places to eat?", "answers":[
+		{"id":0, "question": "What are good places to eat?", "answers":[
 			{"id":1,"answer":"Chipotle"},
 			{"id":2,"answer":"Subways"}	
 		]},
-		{"id":2, "question": "What is the meaning of life?", "answers":[
+		{"id":1, "question": "What is the meaning of life?", "answers":[
 			{"id":1,"answer":"Cats"},
 			{"id":2,"answer":"Pizza"}
 		]}
@@ -23,12 +23,15 @@ var server = app.listen(3000, () =>{
 
 app.use(express.static('public'));
 
+// Get the questions.
 app.get('/questions', getQuestions);
 function getQuestions(req, res){
 	var questions = data.questions.map(item => item.question);
 	res.send(questions);
 }
 
+// Get answers to question
+// @Param: ID of the question to get answers to.
 app.get('/questions/:id/', getAnswers); 
 function getAnswers(req, res){
 	var questionID = req.params.id;
@@ -36,16 +39,21 @@ function getAnswers(req, res){
 	res.send(questionAnswers);
 }
 
+// Add a question
+// @param: question to be asked.
 app.get('/add/question/:id', addQuestion);
 function addQuestion(req, res){
 	var question = req.params.id;
 	var array = [];
-	console.log(data.questions.length+1);
+	console.log(data.questions.length);
 	data.questions.push(
 		{
-			id: (data.questions.length+1),
+			id: (data.questions.length),
 			question: question,
 			answers: array
 		});
 	res.send("thanks for your question.");
 }
+
+
+
