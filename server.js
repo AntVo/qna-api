@@ -37,4 +37,15 @@ function getAnswers(req, res){
 }
 
 app.get('/add/question/:id', addQuestion);
-function addQuestion
+function addQuestion(req, res){
+	var question = req.params.id;
+	var array = [];
+	console.log(data.questions.length+1);
+	data.questions.push(
+		{
+			id: (data.questions.length+1),
+			question: question,
+			answers: array
+		});
+	res.send("thanks for your question.");
+}
