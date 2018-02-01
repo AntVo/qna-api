@@ -35,3 +35,6 @@ function getAnswers(req, res){
 	var questionAnswers = data.questions[questionID].answers.map(item=> item.answer);
 	res.send(questionAnswers);
 }
+
+app.get('/add/question/:id', addQuestion);
+function addQuestion
