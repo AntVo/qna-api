@@ -1,22 +1,11 @@
 var express = require('express');
+var fs = require('fs');
+
+var jsonData = fs.readFileSync('questions.json');
+var data = JSON.parse(jsonData);
+console.log(data);
+
 var app = express();
-
-
-var data = {
-	"questions": [
-		{"id":0, "question": "What are good places to eat?", "answers":[
-			{"id":1,"answer":"Chipotle"},
-			{"id":2,"answer":"Subways"}	
-		]},
-		{"id":1, "question": "What is the meaning of life?", "answers":[
-			{"id":1,"answer":"Cats"},
-			{"id":2,"answer":"Pizza"}
-		]}
-	]
-	// data.questions[0].question -> What are good places to eat?
-	// data.questions[0].answers[0].answer -> Chipotle
-}
-
 var server = app.listen(3000, () =>{
 	console.log('Listening on port: 3000');
 })
@@ -59,6 +48,10 @@ function addQuestion(req, res){
 			question: question,
 			answers: array
 		});
+	var newData = JSON.stringify(data, null, 3);
+	fs.writeFile('questions.json', newData, function(err){
+		console.log('all set');
+	});
 	res.send("thanks for your question.");
 }
 
@@ -72,6 +65,10 @@ function addAnswer(req, res){
 		answer: answer
 	}
 	data.questions[id].answers.push(answerObj);
+	var newData = JSON.stringify(data, null, 3);
+	fs.writeFile('questions.json', newData, function(err){
+		console.log('all set');
+	})
 	res.send("thanks for your answer.");
 }
 
