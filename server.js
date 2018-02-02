@@ -23,6 +23,13 @@ var server = app.listen(3000, () =>{
 
 app.use(express.static('public'));
 
+//Get all data
+app.get('/all', getAll);
+function getAll(res, res){
+	res.send(data);
+}
+
+
 // Get the questions.
 app.get('/questions', getQuestions);
 function getQuestions(req, res){
@@ -55,5 +62,16 @@ function addQuestion(req, res){
 	res.send("thanks for your question.");
 }
 
-
+// Answer a Question with ID# 
+app.get('/add/answer/:questionid/:answer', addAnswer);
+function addAnswer(req, res){
+	var id = req.params.questionid;
+	var answer = req.params.answer;
+	var answerObj = {
+		id: data.questions[id].answers.length,
+		answer: answer
+	}
+	data.questions[id].answers.push(answerObj);
+	res.send("thanks for your answer.");
+}
 
