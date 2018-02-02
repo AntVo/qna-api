@@ -6,9 +6,7 @@ var data = JSON.parse(jsonData);
 console.log(data);
 
 var app = express();
-var server = app.listen(3000, () =>{
-	console.log('Listening on port: 3000');
-})
+var server = app.listen(process.env.PORT || 8080, () => console.log('Server is running!'));
 
 app.use(express.static('public'));
 
@@ -17,7 +15,6 @@ app.get('/all', getAll);
 function getAll(res, res){
 	res.send(data);
 }
-
 
 // Get the questions.
 app.get('/questions', getQuestions);
