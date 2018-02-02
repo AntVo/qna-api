@@ -72,3 +72,24 @@ function addAnswer(req, res){
 	res.send("thanks for your answer.");
 }
 
+
+// Delete Question with ID#
+app.get('/delete/:questionid', deleteQuestion);
+function deleteQuestion(req, res){
+	var id = req.params.questionid;
+	if (id < data.questions.length){
+		data.questions.splice(id, 1);
+	} else {
+		res.send("Question doesn't exist!");
+		return;
+	}
+	var newData = JSON.stringify(data, null, 3);
+	fs. writeFile('questions.json', newData, function(err){
+		console.log('all set');
+	})
+	res.send("Question deleted");
+}
+
+
+
+
